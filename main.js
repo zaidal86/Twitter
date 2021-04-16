@@ -2,10 +2,13 @@ var request = require('request');
 const fs = require('fs');
 const app = require('./dashboard/server.js');
 const { token } = require('./config.json');
+let user = {};
+let date = {};
+let message = {};
 
 var options = {
     'method': 'GET',
-    'url': 'https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=ArgoMiss&count=300&exclude_replies=true&include_rts=false',
+    'url': 'https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=Zaidal86&count=300&exclude_replies=true&include_rts=false',
     'headers': {
         'Authorization': 'Bearer ' + token,
         'Cookie': 'guest_id=v1%3A161855156611978309; personalization_id="v1_DjYOl4uz4w/gYTB1kQtTvA=="'
@@ -38,9 +41,10 @@ function tweeter() {
                 fs.writeFileSync('./dashboard/views/data.json', dataStringified);
 
             } catch (e) {
-                console.log("Il n'existe pas plus de tweet")
+                console.log('Error' + e);
             };
         };
     });
     setTimeout(tweeter, 1 * 1000);
 };
+tweeter();
